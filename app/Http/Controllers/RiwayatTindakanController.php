@@ -42,38 +42,7 @@ class RiwayatTindakanController extends Controller
     public function create()
     {
 
-        /*
-        $data['riwayatTindakanPeriode']= TransactionRawatJalanModel::select(
-            "transaksi_rawat_jalan.id", 
-            "transaksi_rawat_jalan.transaksiID", 
-            "transaksi_rawat_jalan.pasienID",
-            "transaksi_rawat_jalan.paymenType",
-            "master_pasien.dateOfBirth",
-            "master_pasien.nik",
-            "master_pasien.name name_pasien",
-            "transaksi_rawat_jalan.status",
-            "master_tindakan.name name_tindakan",
-            "transaksi_rawat_jalan.tglTindakan",
-            "transaksi_rawat_jalan.sampleTime",
-            "master_payment.namePayment",
-            "master_outlet.name name_outlet",
-            "master_tindakan.typeTindakan",
-            "transaksi_rawat_jalan.grandTotal",
-            "transaksi_rawat_jalan.createdAt",
-            "master_tindakan.typeTindakan",
-            "master_hasil_tes.hasil"
-        )
-        ->join("master_pasien", "transaksi_rawat_jalan.pasienID", "=", "master_pasien.id")
-        ->join("master_outlet", "transaksi_rawat_jalan.outletID", "=", "master_outlet.id")
-        ->join("master_tindakan", "transaksi_rawat_jalan.tindakanID", "=", "master_tindakan.id")
-        ->join("master_payment", "master_payment.id", "=", "transaksi_rawat_jalan.paymentType")
-        ->join("master_hasil_tes", "master_hasil_tes.idTransaction", "=", "transaksi_rawat_jalan.transaksiID")
-        ->where('transaksi_rawat_jalan.status', '!=', 'Failed')
-        ->whereDate('transaksi_rawat_jalan.tglTindakan', '>=', '2022-03-01')
-        ->whereDate('transaksi_rawat_jalan.tglTindakan', '<=', '2022-04-05')
-        ->get();
-        return view('riwayatTindakan.index', $data);
-        */
+       //
     }
 
     /**
