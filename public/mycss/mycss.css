@@ -1,0 +1,254 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+body {
+    font-family: sans-serif;
+    overflow-x: hidden;
+    /* background-color: rgb(179, 176, 171); */
+}
+nav {
+    background-color: rgb(23, 238, 209);
+    display: flex;
+    color: white;
+    justify-content: space-between;
+    align-items: center;
+    height: 50px;
+    padding: 30px;
+}
+#cvd {
+    color: rgb(228, 188, 28);
+    font-size: 15px;
+}
+.logo {
+    /* font-family: "Pacifico"; */
+    margin-right: 25px;
+    letter-spacing: 3px;
+    color: rgb(238, 194, 16);
+}
+nav ul {
+    display: flex;
+    list-style: none;
+    width: 50%;
+    justify-content: space-between;
+}
+nav ul li a {
+    text-decoration: none;
+    color: rgb(8, 7, 7);
+    font-family: "Montserrat", sans-serif;
+    margin-top: 15px;
+}
+nav ul li a:hover {
+    color: white;
+}
+
+.toggle-menu {
+    display: none;
+    flex-direction: column;
+    height: 20px;
+    justify-content: space-between;
+    position: relative;
+}
+.toggle-menu input {
+    position: absolute;
+    opacity: 0;
+    width: 50px;
+    height: 28px;
+    left: -7px;
+    cursor: pointer;
+    /* z-index: 9; */
+}
+/* animation burger */
+.toggle-menu span:nth-child(2) {
+    transform-origin: 0 0;
+    transition: all 0.5s;
+    position: relative;
+    z-index: 4;
+}
+.toggle-menu input:checked ~ span:nth-child(2) {
+    transform: rotate(45deg) translate(-2px, -2px);
+    background-color: white;
+    position: relative;
+    z-index: 4;
+}
+.toggle-menu span:nth-child(4) {
+    transition: all 0.5s;
+    transform-origin: 0 100%;
+    position: relative;
+    z-index: 4;
+}
+.toggle-menu input:checked ~ span:nth-child(4) {
+    background-color: white;
+    transform: rotate(-45deg) translate(0px, 0px);
+    position: relative;
+    z-index: 4;
+}
+.toggle-menu input:checked ~ span:nth-child(3) {
+    opacity: 0;
+    transform: scale(0);
+    position: relative;
+    z-index: 4;
+}
+.toggle-menu span {
+    display: block;
+    width: 30px;
+    height: 3px;
+    background-color: rgb(228, 240, 240);
+    border-radius: 3px;
+    position: relative;
+    z-index: 4;
+}
+
+@media screen and (max-width: 768px) {
+    nav ul {
+        width: 50vh;
+    }
+}
+/* ukuran mobile */
+@media screen and (max-width: 768px) {
+    nav ul {
+        position: absolute;
+        right: 0;
+        top: 0;
+        width: 50%;
+        flex-direction: column;
+        justify-content: space-evenly;
+        height: 100vh;
+        align-items: center;
+        z-index: 1;
+        background-color: rgb(23, 238, 209);
+        transform: translateX(100%);
+        transition: all 0.5s;
+        opacity: 0;
+        margin-top: 20px;
+    }
+
+    .toggle-menu {
+        display: flex;
+        position: relative;
+        z-index: 4;
+        /* overflow-x: hidden; */
+    }
+    nav ul.slide {
+        transform: translateX(0);
+        transition: all 0.5s;
+        opacity: 1;
+    }
+    #cari {
+        border-radius: 100%;
+        /* width: 100%; */
+    }
+}
+#logout:hover {
+    background-color: rgb(252, 11, 11);
+}
+#home:hover {
+    background-color: rgb(238, 231, 21);
+}
+#pendaftaran:hover {
+    background-color: rgb(238, 231, 21);
+}
+#riwayat:hover {
+    background-color: rgb(238, 231, 21);
+}
+#profile:hover {
+    background-color: rgb(238, 231, 21);
+}
+#pesanan:hover {
+    background-color: rgb(238, 231, 21);
+}
+#lokasi {
+    position: absolute;
+    background-color: black;
+    z-index: -3;
+}
+#cari {
+    border-radius: 50px;
+    width: 350px;
+}
+#pilihLokasi:hover {
+    background-color: rgb(238, 231, 21);
+}
+#pilihLokasi {
+    background: rgb(23, 238, 209);
+    cursor: pointer;
+    border-radius: 55px;
+}
+#sendiri {
+    width: 100%;
+    background: rgb(23, 238, 209);
+    cursor: pointer;
+    border-radius: 55px;
+}
+#orangLain {
+    width: 100%;
+    background: rgb(23, 238, 209);
+    border-radius: 55px;
+    cursor: pointer;
+}
+#sendiri:hover {
+    background-color: rgb(238, 231, 21);
+}
+#orangLain:hover {
+    background-color: rgb(238, 231, 21);
+}
+.transition {
+    width: 70%;
+    transition: width 1s;
+    -webkit-transition: width 1s;
+}
+.transitioncss {
+    width: 100%;
+    border: 1px solid rgb(23, 238, 209);
+}
+#daftarharga {
+    border: 3px solid rgb(23, 238, 209);
+    color: rgb(23, 238, 209);
+    font-weight: bold;
+}
+#daftarharga:hover {
+    background-color: rgb(23, 238, 209);
+    color: #fff;
+}
+.listHargaTidak {
+    display: block;
+}
+.transitionHarga {
+    width: 70%;
+    transition: width 1s;
+    -webkit-transition: width 1s;
+}
+.transitionHargacss {
+    width: 100%;
+}
+#btnSave {
+    background: rgb(23, 238, 209);
+    color: #1a1917;
+    width: 100%;
+    border-radius: 55px;
+}
+#btnDelete {
+    background: rgb(23, 238, 209);
+    color: #1a1917;
+    border-radius: 55px;
+}
+#btnSave:hover {
+    background-color: rgb(238, 231, 21);
+}
+#btnDelete:hover {
+    background-color: rgb(238, 72, 21);
+    color: #fff;
+}
+#tambahTindakan {
+    background-color: rgb(238, 231, 21);
+    color: #1a1917;
+    width: 100%;
+    border-radius: 55px;
+}
+#tambahTindakan:hover {
+    background: rgb(23, 238, 209);
+}
+.btnssweat {
+    background: rgb(16, 207, 144);
+    width: 60px;
+}
