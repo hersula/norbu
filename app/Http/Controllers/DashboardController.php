@@ -80,49 +80,7 @@ class DashboardController extends Controller
      */
     public function create(Request $request)
     {
-
-        /*
-        $sesOutlet= Session::get('outlet');
-        $outlet['outlet'] = OutletModel::where('status', '=', 'Aktif')
-        ->get(); 
-        $data['getOutletLapTrx']= DB::table('master_outlet')
-        ->select('master_outlet.name as namaOutlet')
-        ->where('master_outlet.id', '=', $request->selected_outlet)
-        ->get();
-        $todayDate = Carbon::now()->format('Y-m-d');
-        $data['jml_trx_open']= DB::table('transaksi_rawat_jalan')
-        ->select(DB::raw("count(*) as count_trx_open"))
-        ->join('master_outlet', 'transaksi_rawat_jalan.outletID', 'master_outlet.id')
-        ->where('transaksi_rawat_jalan.status', '=', 'Open')
-        ->where('master_outlet.name', '=', $sesOutlet)
-        ->where('transaksi_rawat_jalan.tglTindakan', '=', $todayDate)
-        ->get();
-
-       $data['jml_trx_paid']= DB::table('transaksi_rawat_jalan')
-        ->select(DB::raw("count(*) as count_trx_paid"))
-        ->join('master_outlet', 'transaksi_rawat_jalan.outletID', 'master_outlet.id')
-        ->where('transaksi_rawat_jalan.status', '=', 'Paid')
-        ->where('master_outlet.name', '=', $sesOutlet)
-        ->where('transaksi_rawat_jalan.tglTindakan', '=', $todayDate)
-        ->get(); 
-
-       $data['jml_trx_onprocess']= DB::table('transaksi_rawat_jalan')
-        ->select(DB::raw("count(*) as count_trx_onprocess"))
-        ->join('master_outlet', 'transaksi_rawat_jalan.outletID', 'master_outlet.id')
-        ->where('transaksi_rawat_jalan.status', '=', 'On Process')
-        ->where('master_outlet.name', '=', $sesOutlet)
-        ->where('transaksi_rawat_jalan.tglTindakan', '=', $todayDate)
-        ->get(); 
-        
-       $data['jml_trx_close']= DB::table('transaksi_rawat_jalan')
-       ->select(DB::raw("count(*) as count_trx_close"))
-       ->join('master_outlet', 'transaksi_rawat_jalan.outletID', 'master_outlet.id')
-       ->where('transaksi_rawat_jalan.status', '=', 'Close')
-       ->where('master_outlet.name', '=', $sesOutlet)
-       ->where('transaksi_rawat_jalan.tglTindakan', '=', $todayDate)
-       ->get(); 
-       return view('dashboard.index', $outlet, $data); 
-        */
+        // 
     }
 
     /**
@@ -139,13 +97,6 @@ class DashboardController extends Controller
         $data['outlet'] = OutletModel::where('status', '=', 'Aktif')
         ->get();
 
-        $data['getOutletLapTrx']= DB::table('master_outlet')
-        ->select('master_outlet.name as namaOutlet')
-        ->where('master_outlet.id', '=', $request->selected_outlet)
-        ->get();
-       
-
-    
         /*laporan transaksi outlet yang dipilih */ 
         if ($tglAwal !='' && $tglAkhir !='') {
             if($request->selected_outlet) {
@@ -270,6 +221,11 @@ class DashboardController extends Controller
                 ->get();
             }
         }  
+
+        $data['getOutletLapTrx']= DB::table('master_outlet')
+        ->select('master_outlet.name as namaOutlet')
+        ->where('master_outlet.id', '=', $request->selected_outlet)
+        ->get();
         
         return view('dashboard.index', $data); 
     }
@@ -280,10 +236,62 @@ class DashboardController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
+
     public function show($id)
     {
-        //
-      
+        /*
+        $sesOutlet= Session::get('outlet');
+        if ($request->StatOpen) {
+            $data['laporanTindakanOutlet']=TransactionRawatJalanModel::join('master_pasien', 'master_pasien.id', '=', 'transaksi_rawat_jalan.pasienID')
+            ->join('master_tindakan', 'master_tindakan.id', '=', 'transaksi_rawat_jalan.transaksiID')
+            ->join('master_outlet', 'master_outlet.id', '=', 'transaksi_rawat_jalan.outletID')
+            ->join('master_payment', 'master_payment.id', '=', 'transaksi_rawat_jalan.paymentType')
+            ->select('transaksi_rawat_jalan.id', 'transaksi_rawat_jalan.transaksiID', 'master_pasien.nik', 'master_pasien.name as namaPasien', 'master_pasien.passport', 'master_tindakan.name as namaTindakan', 'master_outlet.name as namaOutlet', 'master_payment.namePayment', 'transaksi_rawat_jalan.tglTindakan', 'transaksi_rawat_jalan.grandTotal')
+            ->where('transaksi_rawat_jalan.status', 'Open')
+            ->where('transaksi_rawat_jalan.status', $sesOutlet)
+            ->where('transaksi_rawat_jalan.tglTindakan', $tglDipilih)
+            ->orderBy('transaksi_rawat_jalan.id', 'desc')
+            ->get();
+            
+        }elseif ($request->StatPaid) {
+            $data['laporanTindakanOutlet']=TransactionRawatJalanModel::join('master_pasien', 'master_pasien.id', '=', 'transaksi_rawat_jalan.pasienID')
+            ->join('master_tindakan', 'master_tindakan.id', '=', 'transaksi_rawat_jalan.transaksiID')
+            ->join('master_outlet', 'master_outlet.id', '=', 'transaksi_rawat_jalan.outletID')
+            ->join('master_payment', 'master_payment.id', '=', 'transaksi_rawat_jalan.paymentType')
+            ->select('transaksi_rawat_jalan.id', 'transaksi_rawat_jalan.transaksiID', 'master_pasien.nik', 'master_pasien.name as namaPasien', 'master_pasien.passport', 'master_tindakan.name as namaTindakan', 'master_outlet.name as namaOutlet', 'master_payment.namePayment', 'transaksi_rawat_jalan.tglTindakan', 'transaksi_rawat_jalan.grandTotal')
+            ->where('transaksi_rawat_jalan.status', 'Paid')
+            ->where('transaksi_rawat_jalan.status', $sesOutlet)
+            ->where('transaksi_rawat_jalan.tglTindakan', $tglDipilih)
+            ->orderBy('transaksi_rawat_jalan.id', 'desc')
+            ->get();
+
+        }elseif ($request->StatOnProcess) {
+
+            $data['laporanTindakanOutlet']=TransactionRawatJalanModel::join('master_pasien', 'master_pasien.id', '=', 'transaksi_rawat_jalan.pasienID')
+            ->join('master_tindakan', 'master_tindakan.id', '=', 'transaksi_rawat_jalan.transaksiID')
+            ->join('master_outlet', 'master_outlet.id', '=', 'transaksi_rawat_jalan.outletID')
+            ->join('master_payment', 'master_payment.id', '=', 'transaksi_rawat_jalan.paymentType')
+            ->select('transaksi_rawat_jalan.id', 'transaksi_rawat_jalan.transaksiID', 'master_pasien.nik', 'master_pasien.name as namaPasien', 'master_pasien.passport', 'master_tindakan.name as namaTindakan', 'master_outlet.name as namaOutlet', 'master_payment.namePayment', 'transaksi_rawat_jalan.tglTindakan', 'transaksi_rawat_jalan.grandTotal')
+            ->where('transaksi_rawat_jalan.status', 'On Process')
+            ->where('transaksi_rawat_jalan.status', $sesOutlet)
+            ->where('transaksi_rawat_jalan.tglTindakan', $tglDipilih)
+            ->orderBy('transaksi_rawat_jalan.id', 'desc')
+            ->get();
+
+        }elseif ($request->StatClose) {
+            $data['laporanTindakanOutlet']=TransactionRawatJalanModel::join('master_pasien', 'master_pasien.id', '=', 'transaksi_rawat_jalan.pasienID')
+            ->join('master_tindakan', 'master_tindakan.id', '=', 'transaksi_rawat_jalan.transaksiID')
+            ->join('master_outlet', 'master_outlet.id', '=', 'transaksi_rawat_jalan.outletID')
+            ->join('master_payment', 'master_payment.id', '=', 'transaksi_rawat_jalan.paymentType')
+            ->select('transaksi_rawat_jalan.id', 'transaksi_rawat_jalan.transaksiID', 'master_pasien.nik', 'master_pasien.name as namaPasien', 'master_pasien.passport', 'master_tindakan.name as namaTindakan', 'master_outlet.name as namaOutlet', 'master_payment.namePayment', 'transaksi_rawat_jalan.tglTindakan', 'transaksi_rawat_jalan.grandTotal')
+            ->where('transaksi_rawat_jalan.status', 'Close')
+            ->where('transaksi_rawat_jalan.status', $sesOutlet)
+            ->where('transaksi_rawat_jalan.tglTindakan', $tglDipilih)
+            ->orderBy('transaksi_rawat_jalan.id', 'desc')
+            ->get();
+        }
+        return view('dashboard.showReportOutlet', $data);  
+        */
     }
 
     /**
