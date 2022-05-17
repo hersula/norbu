@@ -3,8 +3,8 @@
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\ReportDashboardOutletController;
 use App\Http\Controllers\EmployeeController;
-use App\Http\Controllers\HasilTesAntigenNonfaskeController;
 use App\Http\Controllers\HomeMemberController;
 use App\Http\Controllers\LoginMemberController;
 use App\Http\Controllers\NonPersonaController;
@@ -29,6 +29,9 @@ use App\Http\Controllers\TipePembayaranController;
 use App\Http\Controllers\HasilTesController;
 use App\Http\Controllers\HasilTesAntigenController;
 use App\Http\Controllers\HasilTesAntigenFaskesController;
+use App\Http\Controllers\HasilTesAntigenNonfaskeController;
+use App\Http\Controllers\HasilTesPCRFaskesController;
+use App\Http\Controllers\HasilTesPCRNonFaskesController;
 use App\Http\Controllers\TransaksiRawatJalanController;
 use App\Http\Controllers\GantiPasswordController;
 use Illuminate\Support\Facades\Route;
@@ -80,6 +83,7 @@ Route::group(['middleware' => 'checkMember'], function () {
 Route::group(['middleware' => 'check'], function () {
     //Dashboard Admin
     Route::resource('dashboard', DashboardController::class);
+    Route::resource('report-dashboard-outlet', ReportDashboardOutletController::class);
     Route::resource('outlet', OutletController::class);
     Route::resource('roles', RolesController::class);
     Route::resource('karyawan', EmployeeController::class);
@@ -97,6 +101,8 @@ Route::group(['middleware' => 'check'], function () {
     Route::resource('hasil-tes-antigen', HasilTesAntigenController::class);
     Route::resource('hasil-tes-antigen-nonFaskes', HasilTesAntigenNonfaskeController::class);
     Route::resource('hasil-tes-antigen-Faskes', HasilTesAntigenFaskesController::class);
+    Route::resource('hasil-tes-pcr-Faskes', HasilTesPCRFaskesController::class);
+    Route::resource('hasil-tes-pcr-nonFaskes', HasilTesPCRNonFaskesController::class);
     Route::resource('gantiPassword', GantiPasswordController::class);
 
     // rooteAjax
